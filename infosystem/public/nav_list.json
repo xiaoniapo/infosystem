@@ -1,0 +1,55 @@
+{
+    "status": 200,
+    "msg": "请求成功",
+    "data": [
+        {
+            "title": "首页",
+            "class": "home_page",
+            "underline": true,
+            "name": "home_page",
+            "id": 1
+        },
+        {
+            "title": "数据统计",
+            "class": "data_statistics",
+            "underline": true,
+            "name": "data_statistics",
+            "id": 2
+        },
+        {
+            "title": "信息管理",
+            "class": "info_manage",
+            "underline": true,
+            "name": "info_manage",
+            "id": 3
+        },
+        {
+            "title": "列表展示",
+            "class": "",
+            "underline": false,
+            "name": "list_show",
+            "id": 4
+        }, 
+        {
+            "title": "用户管理",
+            "class": "user_manage",
+            "underline": true,
+            "name": "user_manage",
+            "id": 5
+        },
+        {
+            "title": "用户统计",
+            "class": "",
+            "underline": false,
+            "name": "user_statistics",
+            "id": 6
+        },
+        {
+            "title": "角色统计",
+            "class": "",
+            "underline": false,
+            "name": "type_statistics",
+            "id": 7
+        }
+    ]
+}
