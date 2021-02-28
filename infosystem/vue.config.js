@@ -5,6 +5,7 @@ module.exports = {
                 target: "http://open.duyiedu.com",
                 changeOrigin: true
             } 
-        }
+        },
+        open: true,
     }
 }

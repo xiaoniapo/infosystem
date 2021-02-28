@@ -1,16 +1,43 @@
 import axios from "axios";
+import url from "./URL";
 
-// axios.defaults.baseURL = "http://open.duyiedu.com";
-
-// axios.interceptors.request.use(config => {
-//     config.url += ".json";
-//     return config;
-// });
+const appkey = "18271562112_1598363415528";
 
 axios.interceptors.response.use(res => {
-    if(res.status === 200) {
-        return res.data
+    console.log(res)
+    if (res.status === 200) {
+        return res.data;
+    } else {
+        return res;
     }
 });
 
-export default axios;
+const api = {};
+
+for (const prop in url) {
+    api[prop] = ajax(url[prop].address, url[prop].methods)
+}
+
+console.log(api)
+
+function connect(obj) {
+    let str = `?appkey=${appkey}&`;
+    for (const prop in obj) {
+        str += prop + "=" + obj[prop] + "&"
+    }
+    console.log(obj)
+    return str.slice(0, str.length - 1);
+}
+
+function ajax (url, methods) {
+    if(methods === "get") {
+        return (params = {}) => axios.get(url, { params: {
+            appkey,
+            ...params
+        } });
+    } else if(methods === "post") {
+        return params => axios.post(url + connect(params));
+    }
+}
+
+export default api;

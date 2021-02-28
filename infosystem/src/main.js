@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
-import axios from "./http.js";
+import api from "./http.js";
 import router from './router.js';
+import store from "./store.js";
 
 
 import "./assets/reset.css";
@@ -9,10 +10,11 @@ import "../public/font.css";
 
 
 Vue.config.productionTip = false
-Vue.prototype.$http = axios;
-Vue.prototype.appkey = "undefined123_1613890771031"
+Vue.prototype.$http = api;
+
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')
