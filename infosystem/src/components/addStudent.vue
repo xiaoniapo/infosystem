@@ -47,16 +47,34 @@
           <input type="text" v-model="mes.address" />
         </label>
       </div>
-      <my-btn @successBtn="commit" @resetContent="reset">
-        添加
+      <my-btn
+        @successBtn="commit"
+        @resetContent="reset"
+        :firstBtn="firstBtn"
+        :secondBtn="secondBtn"
+      >
       </my-btn>
     </form>
   </div>
 </template>
 
 <script>
-import myBtn from "../components/button.vue";
+import { mapState } from "vuex";
+import myBtn from "./button.vue";
 export default {
+  props: {
+    firstBtn: {
+      type: String,
+    },
+    secondBtn: {
+      type: String,
+    },
+    nouse: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: mapState(["curStu"]),
   data() {
     return {
       mes: {
@@ -70,33 +88,53 @@ export default {
       },
     };
   },
+  mounted() {
+    if(this.firstBtn === "修改"){
+        const myMes = this.curStu;
+        const { mes } = this;
+        for (const prop in myMes) {
+          mes[prop] = myMes[prop];
+        }
+    }
+  },
   components: {
     myBtn,
   },
   methods: {
     commit() {
-      this.$http.addStu(this.mes).then((data) => {
-        if (data.status === "fail") {
-          alert(data.msg);
-        } else {
-          this.reset();
-        }
-      });
+      if (this.firstBtn === "添加") {
+        //表示添加当前学生信息
+        this.$store.dispatch("addStu", { reset: this.reset });
+      } else if (this.firstBtn === "修改") {
+
+        //表示编辑学生信息
+        this.$store.dispatch("editStu");
+        this.$emit("myclick", true);
+      }
     },
     reset() {
-      const { mes } = this;
-      mes.name = "";
-      mes.sex = 0;
-      mes.email = "";
-      mes.sNo = "";
-      mes.birth = "";
-      mes.phone = "";
-      mes.address = "";
+      if (this.nouse) {
+        this.$emit("myclick", true);
+      } else {
+        const { mes } = this;
+        mes.name = "";
+        mes.sex = 0;
+        mes.email = "";
+        mes.sNo = "";
+        mes.birth = "";
+        mes.phone = "";
+        mes.address = "";
+      }
     },
   },
-  mounted() {
-    console.log(this.$slots.default)
-  }
+  watch: {
+    mes: {
+      deep: true,
+      handler(newVal) {
+        this.$store.commit("changeCurStu", { stu: newVal });
+      },
+    },
+  },
 };
 </script>
 

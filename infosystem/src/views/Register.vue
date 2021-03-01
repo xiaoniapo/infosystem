@@ -17,16 +17,16 @@
       <div class="pwd">
         <label>
           <span> 密码:</span>
-          <input type="text" placeholder="请输入密码" v-model="password" />
+          <input type="password" placeholder="请输入密码" v-model="password" />
         </label>
       </div>
       <div class="repwd">
         <label>
           <span> 确认密码:</span>
-          <input type="text" placeholder="请确认密码" v-model="rePassword" />
+          <input type="password" placeholder="请确认密码" v-model="rePassword" />
         </label>
       </div>
-      <my-btn @successBtn="registe" @resetContent="reset" content="注册"></my-btn>
+      <my-btn @successBtn="registe" @resetContent="reset" firstBtn="注册" secondBtn="重置"></my-btn>
       <div class="login" @click="toLogin">
         <span>已有账号，去登陆</span>
       </div>
@@ -52,7 +52,7 @@ export default {
     registe() {
       const { account, username, password, rePassword } = this;
       if (password !== rePassword) {
-        alert("两次输入的密码不一致");
+        this.$alert({ msg: "两次输入的密码不一致", type: "fail" })
         return;
       }
       this.$http
@@ -63,7 +63,6 @@ export default {
           rePassword,
         })
         .then((data) => {
-          console.log(data);
           localStorage.setItem("login", JSON.stringify(data)); //存储当前服务器所反馈的信息
           localStorage.setItem("userMes", JSON.stringify({
             user: this.account,

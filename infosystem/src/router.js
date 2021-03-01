@@ -21,7 +21,7 @@ const routes = [{
     },
     {
         path: "/home",
-        component: () => import( /* webpackChunkName: 'home'*/ "./views/Home.vue"),
+        component: () => import("./views/Home.vue"),
         name: "home",
         meta: {
             requireLogin: true, //用于验证当前界面是否需要验证
@@ -30,7 +30,7 @@ const routes = [{
         children: [{
             path: "studentlist",
             name: "studentlist",
-            component: () => import( /* webpackChunkName: 'home'*/ "./views/StudentList.vue")
+            component: () => import("./views/StudentList.vue")
         },{
             path: "addStu",
             name: "addStu",
@@ -41,10 +41,6 @@ const routes = [{
         path: "/notFound",
         component: () => import("./views/NotFound.vue")
     },
-    {
-        path: "/mask",
-        component: () => import("./components/Mask.vue")
-    }
 ];
 
 const router = new VueRouter({

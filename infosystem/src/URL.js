@@ -23,5 +23,9 @@ export default {
     pageStu: {
         address: "/api/student/findByPage",
         methods: "get"
+    },
+    editStu: {
+        address: "/api/student/updateStudent",
+        methods: "get",
     }
 }

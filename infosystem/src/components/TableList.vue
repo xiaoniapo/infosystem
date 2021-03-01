@@ -23,58 +23,52 @@
           <td>{{ student.phone }}</td>
           <td>{{ student.address }}</td>
           <td>
-            <button class="success" @click="edit">编辑</button>
-
-            <button class="fail" @click="del(student.sNo, index)">删除</button>
+            <my-btn @successBtn="edit(student)" @resetContent="del(student.sNo, index)" firstBtn="编辑" secondBtn="删除"></my-btn>
           </td>
         </tr>
       </tbody>
     </table>
     <span v-else>抱歉，当前还没有数据哦</span>
+    <my-mask v-if="show" :show="show" @isshow="toshow" firstBtn="修改" secondBtn="取消"></my-mask>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import myBtn from "./button.vue";
+import myMask from "./Mask.vue";
 export default {
+  data() {
+    return {
+      show: false
+    }
+  },
   computed: {
     ...mapState({
       stuList: "studentList",
       nowPage: "nowPage",
     }),
   },
+  components: {
+    myBtn,
+    myMask
+  },
   methods: {
-    edit() {
-      console.log("编辑");
+    toshow() {
+      this.show = !this.show;
+    },
+    edit(stu) {
       //弹出遮罩层
+      this.toshow();
+      //修改数据
+      this.$store.commit("changeCurStu", { stu });//表示当前数据
+      //填充数据
     },
     del(sNo, index) {
       //删除当前学生信息
       const isDel = window.confirm("确认删除当前学生信息？");
       if (isDel) {
-        let page = this.nowPage; //表示最终要请求的是那个页面
-        this.$http
-          .delStu({
-            sNo,
-          })
-          .then(() => {
-            if (this.stuList.length === 1) {
-              if (page === 1) {
-                this.$store.commit("getStuList", { res: [] });
-              } else {
-                page -= 1;
-                this.$store.commit("changeNowPage", { num: -1 })
-                console.log(this.nowPage)
-                this.$store.dispatch("pageStu", {
-                  page,
-                });
-              }
-            } else {
-              //在数据中删除当前条数据
-              this.$store.commit("delStuList", { index });
-            }
-          });
+        this.$store.dispatch("delStu", { sNo, index });
       } else {
         return;
       }

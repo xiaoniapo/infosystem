@@ -1,23 +1,35 @@
 <template>
   <div class="btn">
-      <button class="success" @click.prevent="success">
-        <slot></slot>
-      </button>
-      <button class="fail" @click.prevent="reset">重置</button>
+    <button class="success" @click.prevent="success">
+      {{ firstBtn }}
+    </button>
+    <button class="fail" @click.prevent="reset">
+      {{ secondBtn }}
+    </button>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    firstBtn: {
+      type: String,
+      required: true,
+    },
+    secondBtn: {
+      type: String,
+      required: true,
+    },
+  },
   methods: {
     success() {
       this.$emit("successBtn");
     },
     reset() {
       this.$emit("resetContent");
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -31,14 +43,14 @@ export default {
   outline: none;
   cursor: pointer;
   width: 80px;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 15px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 12px;
 }
 .success {
-  background: #85CE61;
+  background: #85ce61;
 }
 .fail {
-  background: #F78989;
+  background: #f78989;
 }
 </style>

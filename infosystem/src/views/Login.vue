@@ -14,7 +14,7 @@
           <input type="password" placeholder="请输入密码" v-model="pwd" />
         </label>
       </div>
-      <my-btn @successBtn="toHome" @resetContent="reset" content="登录"></my-btn>
+      <my-btn @successBtn="toHome" @resetContent="reset" firstBtn="登录" secondBtn="重置"></my-btn>
       <div class="register" @click="toRegiste">
         <span>还没有账号，去注册</span>
       </div>

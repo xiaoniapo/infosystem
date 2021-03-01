@@ -1,6 +1,6 @@
 <template>
     <div class="addStudent">
-        <add-student></add-student>
+        <add-student firstBtn="添加" secondBtn="重置"></add-student>
     </div>
 </template>
 
