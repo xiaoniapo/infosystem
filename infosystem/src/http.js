@@ -18,14 +18,11 @@ for (const prop in url) {
     api[prop] = ajax(url[prop].address, url[prop].methods)
 }
 
-console.log(api)
-
 function connect(obj) {
     let str = `?appkey=${appkey}&`;
     for (const prop in obj) {
         str += prop + "=" + obj[prop] + "&"
     }
-    console.log(obj)
     return str.slice(0, str.length - 1);
 }
 
